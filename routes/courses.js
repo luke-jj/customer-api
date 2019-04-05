@@ -12,6 +12,7 @@
  */
 
 const express = require('express');
+const Joi = require('joi');
 
 /**
  * Module variables.
@@ -36,6 +37,22 @@ const courses = [
   { id: 2, name: 'course2' },
   { id: 3, name: 'course3' },
 ];
+
+/**
+ * Validate user input with the Joi package and return the validation result.
+ *
+ * @param {object} course object, structured according to the schema variable
+ * @return {object} javascript object that contains the validation results
+ * @private
+ */
+
+function validateCourse(course) {
+  const schema = {
+    name: Joi.string().min(3).required()
+  };
+
+  return Joi.validate(course, schema);
+}
 
 /*
  * HTTP GET /api/courses
@@ -133,20 +150,4 @@ router.delete('/:id', (req, res) => {
   // return the deleted course
   res.send(course);
 });
-
-/**
- * Validate user input with the Joi package and return the validation result.
- *
- * @param {object} course object, structured according to the schema variable
- * @return {object} javascript object that contains the validation results
- * @private
- */
-
-function validateCourse(course) {
-  const schema = {
-    name: Joi.string().min(3).required()
-  };
-
-  return Joi.validate(course, schema);
-}
 

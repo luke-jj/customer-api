@@ -28,7 +28,7 @@ const router = express.Router();
 module.exports = router;
 
 /*
- * HTTP Routes
+ * Http Routes
  */
 
 router.get('/', (req, res) => {
